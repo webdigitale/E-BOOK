@@ -212,73 +212,34 @@
                 <button id="toggle-description" class="toggle-button">Voir plus</button>
             </div>
             
-            <form id="payment-form">
+            <form id="payment-form" action="https://submit.jotform.com/submit/252646365484062" method="post">
+                <input type="hidden" name="q3_nom" value="Action en cours ID:1002021">
                 <button type="submit" class="buy-button">ACHETER MAINTENANT</button>
             </form>
         </div>
     </div>
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const description = document.getElementById('description');
-        const toggleButton = document.getElementById('toggle-description');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const description = document.getElementById('description');
+            const toggleButton = document.getElementById('toggle-description');
 
-        const isOverflown = description.scrollHeight > description.clientHeight;
-        if (isOverflown) {
-            toggleButton.style.display = 'block';
-        } else {
-            toggleButton.style.display = 'none';
-        }
-
-        toggleButton.addEventListener('click', function() {
-            if (description.classList.contains('expanded')) {
-                description.classList.remove('expanded');
-                toggleButton.textContent = 'Voir plus';
+            const isOverflown = description.scrollHeight > description.clientHeight;
+            if (isOverflown) {
+                toggleButton.style.display = 'block';
             } else {
-                description.classList.add('expanded');
-                toggleButton.textContent = 'Voir moins';
+                toggleButton.style.display = 'none';
             }
-        });
 
-        const paymentForm = document.getElementById('payment-form');
-        if (paymentForm) {
-            paymentForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                fetch('send.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: 'Probable paiement ID:1002021 !'
-                    })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    // Lève une erreur si la réponse HTTP n'est pas OK
-                    throw new Error('La requête a échoué');
-                })
-                .then(data => {
-                    // Traite la réponse JSON du serveur
-                    if (data.status === 'success') {
-                        console.log('Message envoyé avec succès. Redirection en cours...');
-                        window.location.href = 'https://cpneukhg.mychariow.store/prd_z8o3a1/checkout';
-                    } else {
-                        console.error('Erreur du serveur:', data.message);
-                        // Ne pas rediriger si le message n'est pas envoyé avec succès
-                    }
-                })
-                .catch(error => {
-                    // Gère les erreurs réseau ou de serveur
-                    console.error('Erreur lors de l\'envoi de la requête:', error);
-                    // Ne pas rediriger si la requête échoue
-                });
+            toggleButton.addEventListener('click', function() {
+                if (description.classList.contains('expanded')) {
+                    description.classList.remove('expanded');
+                    toggleButton.textContent = 'Voir plus';
+                } else {
+                    description.classList.add('expanded');
+                    toggleButton.textContent = 'Voir moins';
+                }
             });
-        }
-    });
-</script>
-
+        });
+    </script>
 </body>
-</html>
+                    </html>
