@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maîtrisez Alibaba</title>
+    <style>
+        /* Fichier: style.css */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .product-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .product-container {
+                flex-direction: row;
+            }
+        }
+
+        .product-image-section {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .product-image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4d4d;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transform: rotate(5deg);
+            font-size: 14px;
+        }
+
+        .product-details-section {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-top: 0;
+            line-height: 1.2;
+        }
+
+        .product-features {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin: 10px 0 20px;
+        }
+
+        .product-features span {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .product-price {
+            margin: 20px 0;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .old-price {
+            font-size: 1.5em;
+            color: #95a5a6;
+            text-decoration: line-through;
+            margin-right: 15px;
+        }
+
+        .new-price {
+            font-size: 3em;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .product-access {
+            font-size: 1em;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .description-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .product-description-container {
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            max-height: 120px;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            margin-bottom: 10px;
+        }
+
+        .product-description.expanded {
+            max-height: 1000px;
+        }
+        
+        .product-description p {
+            margin: 0 0 10px 0;
+        }
+
+        .toggle-button {
+            background: none;
+            border: none;
+            color: #3498db;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0;
+            margin-top: 5px;
+        }
+
+        .buy-button {
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .buy-button:hover {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <div class="product-container">
+        <div class="product-image-section">
+            <div class="discount-badge">
+                -65% REDUCTION
+            </div> 
+            <img src="image/ali.png" alt="Liste des Transitaires Africains">
+        </div> 
+        <div class="product-details-section">
+            <h1 class="product-title">MAITRISEZ ALIBABA</h1>
+            
+            <div class="product-features">
+                <span>1 PDF</span> | <span>11 VIDEO</span> |<span>25 min</span>
+            </div>
+
+            <div class="product-price">
+                <span class="old-price">9500F</span>
+                <span class="new-price">3.500F</span>
+            </div>
+
+        
+            <div class="product-description-container">
+                <h2 class="description-title">Description</h2>
+                <div class="product-description" id="description">
+                    <strong>FORMATION PRATIQUE !!!!<br>
+                    ACHETEZ LES PRODUITS EN CHINE ET REVENDRE EN AFRIQUE</strong>.
+                    <p>Vous n'avez plus besoin de gros investissement pour démarrer un business légal et rentable.</p>
+                    <p>Apprenez en seulement 25 min les stratégies incontournables pour réussir sur l'importation de produits chinois.</p>
+                    <p>Ce que vous allez recevoir :</p>
+                    <p>Un résumé au format PDF pour garder l'essentiel à portée de main. Un accès exclusif à 11 vidéos courtes et ciblées.</p>
+                    <p>Toutes les clés pour vous lancer sur Alibaba sans perdre de temps.</p>
+                    <p>PRIX DE LA FORMATION : 3.500F (Au lieu de 9.500F) pour les 10 premiers.</p>
+                    <p>Ce document est le fruit d'une recherche approfondie et vous fait gagner un temps précieux en évitant les erreurs coûteuses. C'est l'outil parfait pour optimiser vos opérations de commerce international sur le marché africain.</p>
+                </div>
+                <button id="toggle-description" class="toggle-button">Voir plus</button>
+            </div>
+            
+            <form id="payment-form" action="https://submit.jotform.com/submit/252646365484062" method="post">
+                <input type="hidden" name="q3_nom" value="Action en cours ID:1002023">
+                <button type="submit" class="buy-button">ACHETER MAINTENANT</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const description = document.getElementById('description');
+            const toggleButton = document.getElementById('toggle-description');
+
+            const isOverflown = description.scrollHeight > description.clientHeight;
+            if (isOverflown) {
+                toggleButton.style.display = 'block';
+            } else {
+                toggleButton.style.display = 'none';
+            }
+
+            toggleButton.addEventListener('click', function() {
+                if (description.classList.contains('expanded')) {
+                    description.classList.remove('expanded');
+                    toggleButton.textContent = 'Voir plus';
+                } else {
+                    description.classList.add('expanded');
+                    toggleButton.textContent = 'Voir moins';
+                }
+            });
+        });
+    </script>
+</body>
+  </html>
