@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tableau de bord — Light</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <style>
+    :root{
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #007bff;
+      --success:#28a745;
+      --warning:#ffc107;
+      --ring:#dbeafe;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .container{
+      max-width: 960px;
+      margin: auto;
+      padding: 16px;
+      padding-bottom: 90px;
+    }
+    .topbar{
+      background: white;
+      border-bottom: 1px solid #ddd;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .avatar{
+      width:44px;height:44px;border-radius:50%;
+      background:var(--ring);color:var(--primary);
+      display:grid;place-items:center;font-size:20px;
+    }
+    .profile .name{font-weight:700;}
+    .profile .aff{font-size:12px;color:var(--muted)}
+    .card{
+      background:var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-top: 14px;
+    }
+    .balance-head{display:flex;align-items:center;gap:10px;color:var(--muted);font-weight:600}
+    .balance-head .icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#e9f3ff;color:var(--primary)}
+    .amount{font-size:40px;margin-top:10px;font-weight:800}
+    .amount small{font-size:18px;color:var(--muted)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      flex:1;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px;border:none;border-radius:12px;font-weight:600;cursor:pointer;color:white;font-size:15px;
+    }
+    .btn.success{background:var(--success)}
+    .btn.warning{background:var(--warning);color:black}
+    .summary-header{display:flex;justify-content:space-between;margin-bottom:8px}
+    .summary-title{font-weight:800;font-size:18px}
+    .pills{display:flex;gap:8px}
+    .pill{padding:6px 12px;border-radius:999px;background:#eef2f7;font-size:12px;font-weight:600}
+    .pill.active{background:var(--ring);color:var(--primary)}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+    .stat{
+      display:flex;align-items:center;gap:10px;background:#f9fbff;padding:12px;border-radius:12px;
+    }
+    .stat .i{width:36px;height:36px;display:grid;place-items:center;background:white;border-radius:8px;border:1px solid #ddd;color:var(--primary)}
+    .stat .val{margin-left:auto;font-weight:800}
+
+    /* Navigation en bas */
+    .nav{
+      position: fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:white;
+      border-top:1px solid #ddd;
+    }
+    .nav .inner{
+      max-width:960px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+    }
+    .nav a{
+      padding:14px 0; /* plus de hauteur */
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:#64748b;
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px; /* texte un peu plus grand */
+    }
+    .nav a i{
+      font-size:22px; /* icône plus grande */
+    }
+    .nav a.active{
+      color:var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="avatar"><i class="fa-solid fa-user"></i></div>
+    <div class="profile">
+      <div class="name">Abdoul Azizou Issa</div>
+      <div class="aff">Aff ID: 2498335</div>
+    </div>
+  </div>
+  <main class="container">
+    <section class="card">
+      <div class="balance-head">
+        <div class="icon"><i class="fa-solid fa-wallet"></i></div>
+        <span>Disponible pour le retrait</span>
+       </div>
+      <div class="amount">0.00<small>XOF</small></div> 
+    </section>
+    <section class="card">
+      <div class="actions">
+        <button class="btn success"><i class="fa-solid fa-hand-holding-dollar"></i> Réclamer</button>
+        <button class="btn warning"><i class="fa-solid fa-money-bill-transfer"></i> Retirer</button>
+      </div>
+    </section>
+    <section class="card">
+      <div class="summary-header">
+        <div class="summary-title">Bref résumé</div>
+        <div class="pills">
+          <span class="pill active">Hier</span>
+          <span class="pill">USD</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="i"><i class="fa-solid fa-piggy-bank"></i></div>
+          <div>Nombre de dépôts</div>
+          <div class="val">0</div>
+        </div>
+        <div class="stat">
+          <div class="i"><i class="fa-solid fa-user-plus"></i></div>
+          <div>Inscriptions</div>
+          <div class="val">0</div>
+        </div>
+        <div class="stat">
+          <div class="i"><i class="fa-solid fa-link"></i></div>
+          <div>Liens directs</div>
+          <div class="val">0</div>
+        </div>
+        <div class="stat">
+          <div class="i"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div>Commission</div>
+          <div class="val">$0.00</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Barre de navigation -->
+  <nav class="nav">
+    <div class="inner">
+      <a href="#" class="active"><i class="fa-solid fa-house"></i><span>Accueil</span></a>
+      <a href="https://www.matchendirect.fr/"><i class="fa-solid fa-futbol"></i><span>Score</span></a>
+      <a href="https://share.google/TJoL1NpElUDFqsIkZ"><i class="fa-solid fa-tower-broadcast"></i><span>Live</span></a>
+      <a href="aces.html"><i class="fa-solid fa-lightbulb"></i><span>Prono</span></a>
+    </div>
+  </nav>
+</body>
+</html>
