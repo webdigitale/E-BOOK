@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Offre Exclusive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --primary-color: #007bff;
+            --text-color: #333;
+            --muted-text: #6c757d;
+            --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --danger-color: #e74c3c;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .signup-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px 30px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: var(--muted-text);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Pop-up pour les messages */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .popup-content {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 380px;
+            width: 90%;
+            text-align: center;
+            padding: 30px;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .popup-overlay.active .popup-content {
+            transform: scale(1);
+        }
+        .popup-icon {
+            font-size: 3rem;
+            color: var(--danger-color);
+            margin-bottom: 15px;
+            animation: bounce 0.8s ease-in-out;
+        }
+        .popup-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+        .popup-message {
+            color: var(--muted-text);
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        .popup-close-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .popup-close-btn:hover {
+            background-color: #0056b3;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        /* Styles pour le chargement */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Doit être au-dessus du pop-up */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .loader-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .loader-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-card">
+            <div class="logo">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1>Inscription requise</h1>
+            <p class="description">
+                Vous devez vous inscrire pour profiter de cette offre exclusive. Veuillez remplir le formulaire ci-dessous.
+            </p>
+            <form id="signup-form">
+                <div class="input-group">
+                    <label for="name-input">Votre nom complet</label>
+                    <input type="text" id="name-input" placeholder="Ex: Jean Dupont" required>
+                </div>
+                <div class="input-group">
+                    <label for="id-input">Votre identifiant (ID)</label>
+                    <input type="text" id="id-input" placeholder="Ex: 232627" required>
+                </div>
+                <button type="submit" class="btn-submit">Valider mon inscription</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <i class="fas fa-exclamation-circle popup-icon"></i>
+            <h2 class="popup-title">ID non reconnu</h2>
+            <p class="popup-message" id="popup-message">
+                L'identifiant que vous avez saisi n'est pas enregistré avec le code promo **BK9090**. Il est impossible d'accéder à nos offres sans un ID valide.
+            </p>
+            <button class="popup-close-btn" onclick="closePopup()">Fermer</button>
+        </div>
+    </div>
+
+    <div class="loader-overlay" id="loader-overlay">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const loaderOverlay = document.getElementById('loader-overlay');
+            const userId = document.getElementById('id-input').value.trim();
+            const validId = "232627";
+
+            // 1. Afficher le chargement
+            loaderOverlay.classList.add('active');
+
+            // 2. Attendre 4 secondes avant de continuer
+            setTimeout(() => {
+                // 3. Cacher le chargement
+                loaderOverlay.classList.remove('active');
+
+                // 4. Vérifier l'ID et afficher le résultat
+                if (userId === validId) {
+                    alert('Inscription réussie ! Vous allez être redirigé vers l\'offre.');
+                } else {
+                    const popupOverlay = document.getElementById('popup-overlay');
+                    popupOverlay.classList.add('active');
+                }
+            }, 4000); // 4000 millisecondes = 4 secondes
+        });
+
+        function closePopup() {
+            const popupOverlay = document.getElementById('popup-overlay');
+            popupOverlay.classList.remove('active');
+        }
+    </script>
+</body>
+</html>

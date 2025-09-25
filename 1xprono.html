@@ -4,10 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tableau de bord — Light</title>
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
   <style>
@@ -82,7 +79,7 @@
     .stat .i{width:36px;height:36px;display:grid;place-items:center;background:white;border-radius:8px;border:1px solid #ddd;color:var(--primary)}
     .stat .val{margin-left:auto;font-weight:800}
 
-    /* Navigation en bas */
+    /* Barre de navigation */
     .nav{
       position: fixed;
       bottom:0;
@@ -98,29 +95,32 @@
       grid-template-columns:repeat(4,1fr);
     }
     .nav a{
-      padding:14px 0; /* plus de hauteur */
+      padding:14px 0;
       display:flex;
       flex-direction:column;
       align-items:center;
       color:#64748b;
       text-decoration:none;
       font-weight:600;
-      font-size:14px; /* texte un peu plus grand */
+      font-size:14px;
     }
     .nav a i{
-      font-size:22px; /* icône plus grande */
+      font-size:22px;
     }
     .nav a.active{
       color:var(--primary);
     }
+a{
+text-decoration:none;
+}
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="avatar"><i class="fa-solid fa-user"></i></div>
     <div class="profile">
-      <div class="name">Abdoul Azizou Issa</div>
-      <div class="aff">Aff ID: 2498335</div>
+      <div class="name">Anonyme</div>
+      <div class="aff">Aff ID: AUCUN</div>
     </div>
   </div>
   <main class="container">
@@ -129,12 +129,12 @@
         <div class="icon"><i class="fa-solid fa-wallet"></i></div>
         <span>Disponible pour le retrait</span>
        </div>
-      <div class="amount">2062.00<small>XOF</small></div> 
+      <div class="amount">0.00<small>XOF</small></div>
     </section>
     <section class="card">
       <div class="actions">
-        <button class="btn success"><i class="fa-solid fa-hand-holding-dollar"></i> Réclamer</button>
-        <button class="btn warning"><i class="fa-solid fa-money-bill-transfer"></i> Retirer</button>
+        <a href="https://www.google.com" class="btn success"><i class="fa-solid fa-hand-holding-dollar"></i> Réclamer</a>
+        <a href="https://www.google.com" class="btn warning"><i class="fa-solid fa-money-bill-transfer"></i> Retirer</a>
       </div>
     </section>
     <section class="card">
@@ -170,7 +170,6 @@
     </section>
   </main>
 
-  <!-- Barre de navigation -->
   <nav class="nav">
     <div class="inner">
       <a href="#" class="active"><i class="fa-solid fa-house"></i><span>Accueil</span></a>
