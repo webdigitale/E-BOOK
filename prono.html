@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tickets Montante</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --ticket: #fff;
+    --muted: #6c757d;
+    --accent: #28a745;
+    --danger: #e74c3c;
+    --primary: #007bff;
+    --pending: #ffc107;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  }
+  body {
+    background: var(--bg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  /* Conteneur des tickets */
+  #tickets-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Espace entre les tickets */
+    width: 100%;
+    max-width: 420px; /* Empêche les tickets de s'étendre sur les grands écrans */
+    margin: 0 auto; /* Centre le conteneur et ajoute des marges latérales */
+  }
+  .ticket {
+    width: 100%; /* Le ticket prend la largeur du conteneur */
+    background: var(--ticket);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+  }
+  .ticket::before, .ticket::after {
+    content: "";
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: var(--bg);
+    border-radius: 50%;
+    top: 70px;
+    z-index: 2;
+  }
+  .ticket::before { left: -16px; }
+  .ticket::after { right: -16px; }
+  .ticket-header {
+    padding: 14px 16px;
+    border-bottom: 2px dashed #e0e0e0;
+    background: #fafafa;
+  }
+  .meta {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge {
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+  .badge.termine { background: var(--danger); color: white; }
+  .badge.en-cours { background: var(--pending); color: white; }
+  .title {
+    margin-top: 6px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .ticket-body { padding: 16px; }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .label { color: var(--muted); }
+  .value { font-weight: 600; }
+  .green { color: var(--accent); font-weight: 700; }
+  .red { color: var(--danger); font-weight: 700; }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+  .status.paid {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--accent);
+  }
+  .status.lost {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--danger);
+  }
+  .status.pending {
+    background: rgba(255, 193, 7, 0.1);
+    color: var(--pending);
+  }
+  .btn {
+    display: block;
+    width: 94%;
+    text-align: center;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 14px;
+    text-decoration: none;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .btn:hover { background: #0056b3; }
+
+  /* Pop-up amélioré */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+  }
+  .popup-content {
+    background: var(--ticket);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 320px;
+    width: 90%;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+  }
+  .popup-overlay.active .popup-content { transform: scale(1); }
+  .popup-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+  }
+  .popup-border.success { background: linear-gradient(90deg, var(--accent), #5cb85c); }
+  .popup-border.danger { background: linear-gradient(90deg, var(--danger), #ff5252); }
+  .popup-border.warning { background: linear-gradient(90deg, var(--pending), #ffeb3b); }
+  .popup-body {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup-icon-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .popup-icon-container.success { background: rgba(40, 167, 69, 0.15); }
+  .popup-icon-container.danger { background: rgba(231, 76, 60, 0.15); }
+  .popup-icon-container.warning { background: rgba(255, 193, 7, 0.15); }
+  .popup-icon {
+    font-size: 36px;
+    color: white;
+  }
+  .popup-icon.check { color: var(--accent); }
+  .popup-icon.times { color: var(--danger); }
+  .popup-icon.warning { color: var(--pending); }
+  .popup-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .popup-message {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 25px;
+  }
+  .popup-close-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .popup-close-btn:hover { background: #0056b3; }
+</style>
+</head>
+<body>
+
+<div class="popup-overlay" id="myPopup">
+  <div class="popup-content">
+    <div class="popup-border" id="popupBorder"></div>
+    <div class="popup-body">
+      <div class="popup-icon-container" id="popupIconContainer">
+        <i class="popup-icon" id="popupIcon"></i>
+      </div>
+      <div class="popup-title" id="popupTitle"></div>
+      <div class="popup-message" id="popupMessage"></div>
+      <button class="popup-close-btn" onclick="closePopup()">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<div id="tickets-container"></div>
+<script>
+  const ticketsData = [
+    { events: 10, cote: 2.35, mise: 250, gains: 58750, result: 'paid' },
+    { events: 12, cote: 2.40, mise: 280, gains: 72000, result: 'paid' },
+    { events: 8, cote: 2.32, mise: 220, gains: 51040, result: 'paid' },
+    { events: 11, cote: 2.45, mise: 240, gains: 68600, result: 'paid' },
+    { events: 9, cote: 2.38, mise: 210, gains: 0, result: 'lost' },
+    { events: 14, cote: 2.30, mise: 290, gains: 95700, result: 'paid' },
+    { events: 13, cote: 2.42, mise: 260, gains: 87540, result: 'paid' },
+    { events: 7, cote: 2.50, mise: 200, gains: 50000, result: 'paid' },
+    { events: 15, cote: 2.37, mise: 270, gains: 98150, result: 'paid' },
+    { events: 10, cote: 2.48, mise: 230, gains: 69880, result: 'paid' },
+    { events: 8, cote: 2.34, mise: 250, gains: 65100, result: 'paid' },
+    { events: 12, cote: 2.31, mise: 280, gains: 0, result: 'lost' },
+    { events: 11, cote: 2.43, mise: 220, gains: 72000, result: 'paid' },
+    { events: 9, cote: 2.46, mise: 210, gains: 68880, result: 'paid' },
+    { events: 10, cote: 2.39, mise: 260, gains: 78900, result: 'paid' },
+    { events: 13, cote: 2.41, mise: 290, gains: 110000, result: 'paid' },
+    { events: 8, cote: 1.45, mise: 300, gains: 29231, result: 'pending' },
+  ];
+
+  const ticketsContainer = document.getElementById('tickets-container');
+  ticketsData.forEach((data, index) => {
+    const ticketDiv = document.createElement('div');
+    ticketDiv.classList.add('ticket');
+    const ticketNumber = index + 1;
+    let statusClass = '';
+    let statusText = '';
+    let badgeClass = '';
+    let badgeText = '';
+    let gainsClass = '';
+    let resultValue = '';
+    if (data.result === 'lost') {
+      statusClass = 'lost';
+      statusText = '✖ Perdu';
+      badgeClass = 'termine';
+      badgeText = 'Terminé';
+      gainsClass = 'red';
+      resultValue = '0 F';
+    } else if (data.result === 'pending') {
+      statusClass = 'pending';
+      statusText = 'En cours';
+      badgeClass = 'en-cours';
+      badgeText = 'En cours';
+      gainsClass = '';
+      resultValue = 'En cours';
+    } else {
+      statusClass = 'paid';
+      statusText = '✔ Payé';
+      badgeClass = 'termine';
+      badgeText = 'Terminé';
+      gainsClass = 'green';
+      resultValue = `${data.gains.toLocaleString()} F`;
+    }
+    ticketDiv.innerHTML = `
+      <div class="ticket-header">
+        <div class="meta">Statut <span class="badge ${badgeClass}">${badgeText}</span></div>
+        <div class="title">Montante <span class="subtitle">N° ${ticketNumber}</span></div>
+      </div>
+      <div class="ticket-body">
+        <div class="row"><div class="label">Nombre d’événements :</div><div class="value">${data.events}</div></div>
+        <div class="row"><div class="label">Côte :</div><div class="value">${data.cote}</div></div>
+        <div class="row"><div class="label">Mise :</div><div class="value">${data.mise} F</div></div>
+        <div class="row"><div class="label">Gains :</div><div class="value ${gainsClass}">${resultValue}</div></div>
+        <div class="row"><div class="label">Résultat :</div><div class="value"><span class="status ${statusClass}">${statusText}</span></div></div>
+        <a href="#" class="btn" data-ticket-result="${data.result}">Participer</a>
+      </div>
+    `;
+    ticketsContainer.appendChild(ticketDiv);
+  });
+</script>
+
+<script>
+  const popupOverlay = document.getElementById('myPopup');
+  const popupBorder = document.getElementById('popupBorder');
+  const popupIconContainer = document.getElementById('popupIconContainer');
+  const popupIcon = document.getElementById('popupIcon');
+  const popupTitle = document.getElementById('popupTitle');
+  const popupMessage = document.getElementById('popupMessage');
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const btns = document.querySelectorAll('.btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const result = btn.getAttribute('data-ticket-result');
+  
+        popupBorder.className = 'popup-border';
+        popupIconContainer.className = 'popup-icon-container';
+        popupIcon.className = 'popup-icon';
+  
+        if (result === 'paid') {
+          popupBorder.classList.add('success');
+          popupIconContainer.classList.add('success');
+          popupIcon.classList.add('fa-solid', 'fa-circle-check', 'check');
+          popupTitle.textContent = 'Événement terminé';
+          popupMessage.textContent = 'Ce ticket a déjà un résultat final et n\'est plus disponible pour participation.';
+        } else if (result === 'lost') {
+          popupBorder.classList.add('danger');
+          popupIconContainer.classList.add('danger');
+          popupIcon.classList.add('fa-solid', 'fa-circle-xmark', 'times');
+          popupTitle.textContent = 'Événement terminé';
+          popupMessage.textContent = 'Ce ticket a déjà un résultat final et n\'est plus disponible pour participation.';
+        } else if (result === 'pending') {
+          popupBorder.classList.add('warning');
+          popupIconContainer.classList.add('warning');
+          popupIcon.classList.add('fa-solid', 'fa-spinner', 'fa-spin', 'warning');
+          popupTitle.textContent = 'Ticket non disponible';
+          popupMessage.textContent = 'Le ticket n\'est pas encore prêt. Veuillez revenir plus tard.';
+        }
+        
+        showPopup();
+      });
+    });
+  });
+  function showPopup() {
+    popupOverlay.style.display = 'flex';
+    setTimeout(() => {
+      popupOverlay.classList.add('active');
+    }, 10);
+  }
+  function closePopup() {
+    popupOverlay.classList.remove('active');
+    setTimeout(() => {
+      popupOverlay.style.display = 'none';
+    }, 300);
+  }
+</script>
+
+</body>
+</html>
