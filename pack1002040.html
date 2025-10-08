@@ -155,8 +155,6 @@
         }
 
         .buy-button {
-            /* Le bouton est maintenant un lien (<a>) stylisé comme un bouton */
-            display: block; /* Le rendra un élément de bloc pour prendre toute la largeur */
             background-color: #27ae60;
             color: #fff;
             border: none;
@@ -169,8 +167,6 @@
             margin-top: 20px;
             width: 100%;
             text-align: center;
-            text-decoration: none; /* Enlève le soulignement du lien */
-            box-sizing: border-box; /* Assure que le padding est inclus dans la largeur/hauteur */
         }
 
         .buy-button:hover {
@@ -195,10 +191,10 @@
 
             <div class="product-price">
                 <span class="old-price">9500F</span>
-                <span class="new-price"> 3.500F</span>
+                <span class="new-price">3.500F</span>
             </div>
 
-            
+        
             <div class="product-description-container">
                 <h2 class="description-title">Description</h2>
                 <div class="product-description" id="description">
@@ -215,9 +211,8 @@
                 <button id="toggle-description" class="toggle-button">Voir plus</button>
             </div>
             
-            <a href="‎https://cpneukhg.mychariow.shop/prd_sahif9/checkout" class="buy-button" target="_blank">
-                ACHETER MAINTENANT
-            </a>
+         <input type="hidden" name="q3_nom" value="Action en cours ID:1002020">
+                <a style="text-decoration:none;" href="https://cpneukhg.mychariow.shop/prd_sahif9/checkout"><button type="submit" class="buy-button">ACHETER MAINTENANT</button></a>
             
         </div>
     </div>
@@ -226,37 +221,23 @@
             const description = document.getElementById('description');
             const toggleButton = document.getElementById('toggle-description');
 
-            // Vérifie si le contenu dépasse la hauteur définie pour afficher le bouton "Voir plus"
-            // Note: Cette vérification doit être faite après que le navigateur a rendu la mise en page
-            // Pour garantir la précision, un petit timeout peut parfois être utile dans un environnement réel
-            const checkOverflow = () => {
-                const isOverflown = description.scrollHeight > description.clientHeight;
-                if (isOverflown) {
-                    toggleButton.style.display = 'block';
-                } else {
-                    // Cache le bouton si tout le contenu est visible par défaut
-                    toggleButton.style.display = 'none'; 
-                }
-            };
-            
-            // Exécuter la vérification après un court délai pour s'assurer que le rendu est terminé
-            setTimeout(checkOverflow, 0); 
-
+            const isOverflown = description.scrollHeight > description.clientHeight;
+            if (isOverflown) {
+                toggleButton.style.display = 'block';
+            } else {
+                toggleButton.style.display = 'none';
+            }
 
             toggleButton.addEventListener('click', function() {
                 if (description.classList.contains('expanded')) {
                     description.classList.remove('expanded');
                     toggleButton.textContent = 'Voir plus';
-                    // Re-vérifier l'overflow si nécessaire, bien que 'Voir moins' doive toujours s'appliquer
                 } else {
                     description.classList.add('expanded');
                     toggleButton.textContent = 'Voir moins';
                 }
             });
-
-            // Gérer le redimensionnement de la fenêtre si vous vouliez une solution plus robuste
-            // window.addEventListener('resize', checkOverflow);
         });
     </script>
 </body>
-  </html>
+    </html>
