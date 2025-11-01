@@ -167,6 +167,9 @@
             margin-top: 20px;
             width: 100%;
             text-align: center;
+            /* Correction: display: block pour prendre toute la largeur */
+            display: block; 
+            text-decoration: none; 
         }
 
         .buy-button:hover {
@@ -180,41 +183,45 @@
             <div class="discount-badge">
                 -65% REDUCTION
             </div> 
-            <img src="image/ali.png" alt="Liste des Transitaires Africains">
+            <img src="image/ali1.jpg" alt="Liste des Transitaires Africains">
         </div> 
         <div class="product-details-section">
             <h1 class="product-title">MAITRISEZ ALIBABA</h1>
             
             <div class="product-features">
-                <span>1 PDF</span> | <span>11 VIDEO</span> |<span>25 min</span>
+                <span>1PDF</span> | <span>42 pages</span> |<span></span>
             </div>
 
             <div class="product-price">
-                <span class="old-price">9500F</span>
-                <span class="new-price">3.500F</span>
+                <span class="old-price">15000F</span>
+                <span class="new-price">5.200F</span>
             </div>
 
         
             <div class="product-description-container">
                 <h2 class="description-title">Description</h2>
                 <div class="product-description" id="description">
-                    <strong>FORMATION PRATIQUE !!!!<br>
-                    ACHETEZ LES PRODUITS EN CHINE ET REVENDRE EN AFRIQUE</strong>.
-                    <p>Vous n'avez plus besoin de gros investissement pour démarrer un business légal et rentable.</p>
-                    <p>Apprenez en seulement 25 min les stratégies incontournables pour réussir sur l'importation de produits chinois.</p>
-                    <p>Ce que vous allez recevoir :</p>
-                    <p>Un résumé au format PDF pour garder l'essentiel à portée de main. Un accès exclusif à 11 vidéos courtes et ciblées.</p>
-                    <p>Toutes les clés pour vous lancer sur Alibaba sans perdre de temps.</p>
-                    <p>PRIX DE LA FORMATION : 3.500F (Au lieu de 9.500F) pour les 10 premiers.</p>
-                    <p>Ce document est le fruit d'une recherche approfondie et vous fait gagner un temps précieux en évitant les erreurs coûteuses. C'est l'outil parfait pour optimiser vos opérations de commerce international sur le marché africain.</p>
+                    <p><strong>🎁 BONUS EXCLUSIF : Le PDF qui peut changer ta vie financière !</strong></p>
+                    <p>Ce guide complet ne s’adresse pas qu’à ceux qui utilisent Alibaba — il montre comment démarrer un business rentable même avec 0 F ou un petit budget. Tu y trouveras tout ce qu’il faut pour acheter, importer et revendre efficacement en Afrique.</p>
+                    
+                    <p><strong>💎 Ce que contient le PDF :</strong></p>
+                    <ul>
+                        <li>**44 transitaires africains fiables** : Bénin, Côte d’Ivoire, Sénégal, Mali, Ghana, Cameroun, Nigeria, Togo, RDC, etc.</li>
+                        <li>**Méthode réaliste pour commencer petit et gagner gros** : Exemple : avec 20 000 F, tu peux générer jusqu’à 80 000 F de bénéfice !</li>
+                        <li>**Comprendre le CBM facilement** : Apprends à calculer le coût réel du transport avant de commander.</li>
+                        <li>**Méthode de sécurité pour les gros achats** : Idéale pour ceux qui investissent des sommes importantes sans risque inutile.</li>
+                        <li>**Le Dropshipping africain (vente sans stock)** : Comment lancer ton activité sans capital de départ.</li>
+                        <li>**Vendre rapidement tes produits** : Découvre plusieurs stratégies simples et efficaces.</li>
+                        <li>**50 fournisseurs fiables** : Une sélection de vendeurs testés pour acheter sans stress.</li>
+                    </ul>
+                    
+                    <p><strong>🔥 Prix promo : 5 200 F</strong></p>
+                    <p>(au lieu de 15 000 F — offre limitée)</p>
                 </div>
                 <button id="toggle-description" class="toggle-button">Voir plus</button>
             </div>
             
-            <form id="payment-form" action="https://submit.jotform.com/submit/252646365484062" method="post">
-                <input type="hidden" name="q3_nom" value="Action en cours ID:1002021">
-                <button type="submit" class="buy-button">ACHETER MAINTENANT</button>
-            </form>
+            <a href="https://cpneukhg.mychariow.shop/prd_x29yfu/checkout" class="buy-button">ACHETER MAINTENANT</a>
         </div>
     </div>
     <script>
@@ -222,6 +229,7 @@
             const description = document.getElementById('description');
             const toggleButton = document.getElementById('toggle-description');
 
+            // Vérifie si le contenu dépasse la hauteur initiale
             const isOverflown = description.scrollHeight > description.clientHeight;
             if (isOverflown) {
                 toggleButton.style.display = 'block';
